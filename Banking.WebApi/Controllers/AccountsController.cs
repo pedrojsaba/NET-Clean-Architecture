@@ -7,7 +7,7 @@ namespace Banking.WebApi.Controllers
     public class AccountsController : ApiController
     {
 
-        //http://localhost:10559/api/Accounts/5
+        //api/Accounts/5
         [HttpGet]
         public BankAccountDto FindById(int id)
         {

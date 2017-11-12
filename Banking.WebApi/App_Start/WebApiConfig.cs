@@ -18,7 +18,7 @@ namespace Banking.WebApi
             );
 
             config.Routes.MapHttpRoute(
-               name: "CustomApi",
+               name: "PerformApi",
                routeTemplate: "api/{controller}/{accountFrom}/{accountTo}/{amount}",
                defaults: new
                {
@@ -27,6 +27,18 @@ namespace Banking.WebApi
                    accountFrom = RouteParameter.Optional,
                    accountTo = RouteParameter.Optional,
                    mount = RouteParameter.Optional
+               }
+           );
+
+            config.Routes.MapHttpRoute(
+               name: "TokenApi",
+               routeTemplate: "api/{controller}/{username}/{password}",
+               defaults: new
+               {
+                   Controller = "Token",
+                   Action = "Get",
+                   username = RouteParameter.Optional,
+                   password = RouteParameter.Optional
                }
            );
         }

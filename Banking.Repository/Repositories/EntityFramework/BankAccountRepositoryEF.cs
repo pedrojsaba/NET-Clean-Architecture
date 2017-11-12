@@ -1,10 +1,7 @@
-﻿using Banking.Domain.Model;
-using Banking.Domain.Repositories;
+﻿using Banking.Domain.Repositories;
 using Banking.Infrastructure.Migrations;
-using Banking.Infrastructure.Repositories.EntityFramework;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 
 namespace Banking.Infrastructure.Repositories.EntityFramework
@@ -64,12 +61,14 @@ namespace Banking.Infrastructure.Repositories.EntityFramework
                            where a.BankAccountId == BankAccountId
                            select a).FirstOrDefault();
 
-                var viewModel = new Banking.Domain.Model.BankAccount();
-                viewModel.Id = account.BankAccountId;
-                viewModel.Number = account.Number;
-                viewModel.Balance = (decimal)account.Balance;
+            var viewModel = new Domain.Model.BankAccount
+            {
+                Id = account.BankAccountId,
+                Number = account.Number,
+                Balance = (decimal) account.Balance
+            };
 
-                return viewModel;
+            return viewModel;
         }
 
 

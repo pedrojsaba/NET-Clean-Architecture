@@ -28,13 +28,10 @@ namespace Banking.Infrastructure.Migrations
                 var customers = from c in context.Customers
                                 select c;
 
-                if (customers.Count() == 0)
-                {
-                    addOperations(context);
-                    addCustomers(context);
-                    addBankAccoutns(context);
-                }
-               
+                if (customers.Any()) return;
+                addOperations(context);
+                AddCustomers(context);
+                addBankAccoutns(context);
             }
         }
 
@@ -45,15 +42,12 @@ namespace Banking.Infrastructure.Migrations
             var Operations = from c in context.Operations
                         select c;
 
-            if (Operations.Count() == 0)
-            {
-                context.Operations.Add(new Operation { Name = "Transferencia" });
-                context.SaveChanges();
-            }
-          
+            if (Operations.Any()) return;
+            context.Operations.Add(new Operation { Name = "Transferencia" });
+            context.SaveChanges();
         }
 
-        void addCustomers(BankingContext context)
+        static void AddCustomers(BankingContext context)
         {
             context.Customers.Add(new Customer { Dni = "00132652", FirstName = "Cesar", LastName = "Paredes", Email = "guillermo.as007@gmail.com", Phone = "994883037", Password = Funciones.GetPassword(8) });
             context.Customers.Add(new Customer { Dni = "00152249", FirstName = "Erick", LastName = "Esquivel", Email = "jeffrey9113@gmail.com", Phone = "987009041", Password = Funciones.GetPassword(8) });

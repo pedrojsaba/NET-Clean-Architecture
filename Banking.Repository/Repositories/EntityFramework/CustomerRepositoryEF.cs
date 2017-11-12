@@ -33,11 +33,11 @@ namespace Banking.Infrastructure.Repositories.EntityFramework
         }
 
 
-        public Banking.Domain.Model.Customer GetByCustomerId(int customerId)
+        public Banking.Domain.Model.Customer GetByCustomerId(int CustomerId)
         {
 
             Banking.Infrastructure.Migrations.Customer customer = (from a in dbContext.Customers
-                            where a.CustomerId==customerId
+                            where a.CustomerId==CustomerId
                             select a).FirstOrDefault();
 
                 var viewModel = new Banking.Domain.Model.Customer();

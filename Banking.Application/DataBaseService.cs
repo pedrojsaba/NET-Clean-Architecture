@@ -1,4 +1,5 @@
-﻿using Banking.Infrastructure.Migrations;
+﻿
+using Banking.Infrastructure.Migrations;
 
 namespace Banking.Application
 {

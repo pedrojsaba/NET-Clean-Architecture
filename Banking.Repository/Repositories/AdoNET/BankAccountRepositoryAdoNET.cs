@@ -1,8 +1,8 @@
 ﻿using Banking.Domain.Repositories;
-using Banking.Domain.Model;
 using System;
 using System.Data.SqlClient;
 using System.Data;
+using Banking.Domain.Model;
 
 // ReSharper disable once CheckNamespace
 namespace Banking.Infrastructure.Repositories

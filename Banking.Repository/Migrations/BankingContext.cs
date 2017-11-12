@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Data.Entity;
-using Banking.Domain.Repositories;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Banking.Infrastructure.Repositories.EntityFramework;
-
 
 namespace Banking.Infrastructure.Migrations
 {
@@ -33,10 +28,13 @@ namespace Banking.Infrastructure.Migrations
                 var customers = from c in context.Customers
                                 select c;
 
-                if (customers.Any()) return;
-                addOperations(context);
-                addCustomers(context);
-                addBankAccoutns(context);
+                if (customers.Count() == 0)
+                {
+                    addOperations(context);
+                    addCustomers(context);
+                    addBankAccoutns(context);
+                }
+               
             }
         }
 

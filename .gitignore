@@ -1,0 +1,13 @@
+# Ignore all compile files.
+
+/Banking.Application/bin
+/Banking.Application/obj
+
+/Banking.Domain/bin
+/Banking.Domain/obj
+
+/Banking.Repository/bin
+/Banking.Repository/obj
+
+/Banking.WebApi/bin
+/Banking.WebApi/obj

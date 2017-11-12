@@ -197,7 +197,7 @@
       <Name>Banking.Application</Name>
     </ProjectReference>
     <ProjectReference Include="..\Banking.Domain\Banking.Domain.csproj">
-      <Project>{B7A905D9-3120-4A81-91A5-8EA98299004F}</Project>
+      <Project>{b7a905d9-3120-4a81-91a5-8ea98299004f}</Project>
       <Name>Banking.Domain</Name>
     </ProjectReference>
   </ItemGroup>

@@ -5,15 +5,18 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Http;
-using Jose;
+using System.Web.Mvc;
+using System.Web.UI.WebControls;
+
 
 namespace Banking.WebApi.Controllers
 {
     public class TokenController : ApiController
     {
-
-        [AllowAnonymous]
+        
+        [System.Web.Http.AllowAnonymous]
         public string Get(string username, string password)
         {
             var payload = new Dictionary<string, object>
@@ -24,8 +27,8 @@ namespace Banking.WebApi.Controllers
 
             var secretKey = Encoding.UTF8.GetBytes("myawesomekey");
 
-            var token = JWT.Encode(payload, secretKey, JwsAlgorithm.HS256);
-            return token;
+           // var token = null;//JWT.Encode(payload, secretKey, JwsAlgorithm.HS256);
+            return null;
 
         }
 

@@ -1,4 +1,7 @@
-﻿using System.Web.Http;
+﻿using System.Linq;
+using System.Net.Http.Formatting;
+using System.Web.Http;
+using Newtonsoft.Json.Serialization;
 
 namespace Banking.WebApi
 {
@@ -7,7 +10,7 @@ namespace Banking.WebApi
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
-
+            config.EnableCors();
             // Web API routes
             config.MapHttpAttributeRoutes();
 
@@ -41,6 +44,9 @@ namespace Banking.WebApi
                    password = RouteParameter.Optional
                }
            );
+
+            var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().First();
+            jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
         }
     }
 }

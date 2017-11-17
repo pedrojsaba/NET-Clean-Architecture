@@ -1,24 +1,25 @@
-﻿using System;
+﻿using Banking.WebApi.Models;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
-using Banking.WebApi.Models;
 
 namespace Banking.WebApi.Engine
 {
-    public class DlProfile
+
+    public class DLProfile
     {
         SqlDataAdapter da;
         DataSet ds;
         DataTable dt;
         SqlParameter paRetVal, paProfileID, paIdGuidAspNetUsers, paFirstName, paLastName, paAddress, paGender, paImage, paIdClienteSeguro;
 
-        public EtProfile GetProfile(string userId)
+        public ETProfile GetProfile(string userId)
         {
-            var ePersona = new EtProfile();
+            var ePersona = new ETProfile();
             try
             {
                 using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["AuthContext"].ToString()))
@@ -33,7 +34,7 @@ namespace Banking.WebApi.Engine
                         dr.Read();
                         if (dr.HasRows)
                         {
-                            ePersona.ProfileId = Convert.ToInt32(dr["ProfileID"]);
+                            ePersona.ProfileID = Convert.ToInt32(dr["ProfileID"]);
                             ePersona.IdGuidAspNetUsers = dr["IdGuidAspNetUsers"].ToString();
                             ePersona.FirstName = dr["FirstName"].ToString();
                             ePersona.LastName = dr["LastName"].ToString();
@@ -52,7 +53,7 @@ namespace Banking.WebApi.Engine
 
             return ePersona;
         }
-        public bool RegisterProfile(EtProfile eProfile)
+        public bool RegisterProfile(ETProfile eProfile)
         {
             bool answer = false;
             try
@@ -98,4 +99,5 @@ namespace Banking.WebApi.Engine
             return answer;
         }
     }
+
 }

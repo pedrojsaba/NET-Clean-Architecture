@@ -37,6 +37,5 @@ namespace Banking.WebApi.Controllers
             // should check in the database
             return true;
         }
-
     }
 }

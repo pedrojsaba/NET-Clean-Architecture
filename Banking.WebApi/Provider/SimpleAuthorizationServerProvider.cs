@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Banking.WebApi.Repository;
+﻿using Banking.WebApi.Repository;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using System.Web;
 
 namespace Banking.WebApi.Provider
 {
@@ -20,24 +23,24 @@ namespace Banking.WebApi.Provider
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
             IdentityUser user;
             IList<string> userInRol;
-            IDictionary<string, string> profile;
+            IDictionary<string, string> profile = new Dictionary<string, string>();
 
-            using (var repo = new AuthRepository())
+            using (AuthRepository _repo = new AuthRepository())
             {
-                user = await repo.FindUser(context.UserName, context.Password);
+                user = await _repo.FindUser(context.UserName, context.Password);
                 if (user == null)
                 {
                     context.SetError("invalid_grant", "The user name or password is incorrect.");
                     return;
                 }
 
-                userInRol = await repo.FindUserInRole(user.Id);
-                profile = repo.FindUserProfile(user.Id);
+                userInRol = await _repo.FindUserInRole(user.Id);
+                profile = _repo.FindUserProfile(user.Id);
             }
 
             var identity = new ClaimsIdentity(context.Options.AuthenticationType);
             identity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
-            identity.AddClaim(new Claim(ClaimTypes.Role, userInRol[0]));
+            identity.AddClaim(new Claim(ClaimTypes.Role, userInRol[0].ToString()));
 
 
             var props = new AuthenticationProperties(profile);
@@ -67,5 +70,4 @@ namespace Banking.WebApi.Provider
             return Task.FromResult<object>(null);
         }
     }
-
 }

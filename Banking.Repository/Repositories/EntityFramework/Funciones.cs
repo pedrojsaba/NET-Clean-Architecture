@@ -8,9 +8,9 @@ namespace Banking.Infrastructure.Repositories.EntityFramework
     public class Funciones
     {
 
-        public static String GetConnectionString()
+        public static string GetConnectionString()
         {
-            return  ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            return ConfigurationManager.ConnectionStrings["AuthContext"].ConnectionString;
         }
 
         public static string GetPassword(Int16 length = 8)

@@ -1,16 +1,18 @@
-﻿using Banking.Application;
-using Banking.Application.Dto;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Http;
+using Banking.Application;
+using Banking.Application.Dto;
 
 namespace Banking.WebApi.Controllers
 {
+    [RoutePrefix("api/BankAccount")]
     public class BankAccountController : ApiController
-    {
-        //http://localhost:10559/api/BankAccount/GetAccounts?id=5
-        [HttpGet]
+    {        
+        // POST api/BankAccount/GetAccounts/5        
+        [HttpPost]
+        [Authorize(Roles = "client")]
         public BankAccountDto[] GetAccounts(int id)
-        {            
+        {
             return new BankingApplicationService().GetAccounts(id).Select(bankAccount => new BankAccountDto
             {
                 Balance = bankAccount.Balance,
@@ -19,6 +21,5 @@ namespace Banking.WebApi.Controllers
                 IsLocked = bankAccount.IsLocked
             }).ToArray();
         }
-
     }
 }

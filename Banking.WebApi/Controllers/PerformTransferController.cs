@@ -1,17 +1,18 @@
 ﻿using System;
+using System.Web.Http;
 using Banking.Application;
 using Banking.Application.Dto;
-using System.Web.Http;
 
 namespace Banking.WebApi.Controllers
 {
+    [RoutePrefix("api/BankAccount")]
     public class PerformTransferController : ApiController
     {
-
-        //http://localhost:10559/api/PerformTransfer?accountFrom=5&accountTo=1&amount=1
+        
         //GET: /PerformTransfer/4767421619142000/0523218924860120/100
 
         [HttpGet]
+        [Authorize(Roles = "client")]
         public ResultDto Perform(string accountFrom, string accountTo, decimal amount)
         {
             try
@@ -32,8 +33,7 @@ namespace Banking.WebApi.Controllers
                     Message = exception.Message
                 };
             }
-            
-        }
 
+        }
     }
 }

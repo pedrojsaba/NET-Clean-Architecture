@@ -31,7 +31,9 @@ namespace Banking.WebApi.Models
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
-       
+        //[Required]
+        [Display(Name = "User Profile")]
+        public ETProfile eProfile { get; set; }
     }
 
     public class UserModelRole

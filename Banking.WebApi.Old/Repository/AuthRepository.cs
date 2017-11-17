@@ -1,20 +1,20 @@
-﻿using Banking.WebApi.Engine;
-using Banking.WebApi.Models;
-using Banking.WebApi.Provider;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
+﻿using Banking.WebApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Banking.WebApi.Engine;
+using Banking.WebApi.Provider;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Banking.WebApi.Repository
 {
     public class AuthRepository : IDisposable
     {
-        private readonly AuthContext _ctx;
-        private readonly UserManager<IdentityUser> _userManager;
-        private DLProfile _dLprofile;
+        private AuthContext _ctx;
+        private UserManager<IdentityUser> _userManager;
+        private DLProfile dLprofile;
 
         public AuthRepository()
         {
@@ -45,7 +45,7 @@ namespace Banking.WebApi.Repository
             await AddUserInRole(user.Id, userModel);
 
             //Register profile
-            _dLprofile = new DLProfile();
+            dLprofile = new DLProfile();
             ETProfile eProfile = new ETProfile();
             eProfile.IdGuidAspNetUsers = user.Id;
             eProfile.FirstName = userModel.eProfile.FirstName;
@@ -54,7 +54,7 @@ namespace Banking.WebApi.Repository
             eProfile.Gender = userModel.eProfile.Gender;
             eProfile.Image = userModel.eProfile.Image;
             eProfile.IdClienteSeguro = userModel.eProfile.IdClienteSeguro;
-            _dLprofile.RegisterProfile(eProfile);
+            dLprofile.RegisterProfile(eProfile);
 
             return result;
         }
@@ -85,9 +85,9 @@ namespace Banking.WebApi.Repository
             return result;
         }
 
-        public async Task AddUserInRole(string id, UserModel userModel)
+        public async Task AddUserInRole(string Id, UserModel userModel)
         {
-            await _userManager.AddToRoleAsync(id, userModel.Role);
+            await _userManager.AddToRoleAsync(Id, userModel.Role);
         }
         public async Task<IdentityUser> FindUser(string userName, string password)
         {

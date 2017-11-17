@@ -1,8 +1,15 @@
-﻿using Microsoft.AspNet.Identity;
-using System.Threading.Tasks;
-using System.Web.Http;
+﻿using Banking.WebApi.Engine;
 using Banking.WebApi.Models;
 using Banking.WebApi.Repository;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
+using System.Web.Http;
 
 namespace Banking.WebApi.Controllers
 {
@@ -17,7 +24,22 @@ namespace Banking.WebApi.Controllers
         }
 
 
-      
+        // POST api/Account/Register
+        [AllowAnonymous]
+        [Route("Register")]
+        public async Task<IHttpActionResult> Register(UserModel userModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var result = await _repo.RegisterUser(userModel);
+
+            var errorResult = GetErrorResult(result);
+
+            return errorResult != null ? new HttpActionResult(HttpStatusCode.InternalServerError, "Internal Server Error") : new HttpActionResult(HttpStatusCode.Created, "Successful");
+        }
 
         // POST api/Account/Role
         [AllowAnonymous]
@@ -33,11 +55,35 @@ namespace Banking.WebApi.Controllers
 
             var errorResult = GetErrorResult(result);
 
-            return errorResult ?? Ok();
-
-            //return new HttpActionResult(HttpStatusCode.Created, "Successful");
+            return errorResult != null ? new HttpActionResult(HttpStatusCode.InternalServerError, "Internal Server Error") : new HttpActionResult(HttpStatusCode.Created, "Successful");
         }
 
+        // POST api/Account/GetAllRoles
+        [AllowAnonymous]
+        [Route("GetAllRoles")]
+        public HttpResponseMessage GetAllRoles()
+        {
+            var listRolesStorage = new List<IdentityRole>(_repo.GetAllRoles());
+            var listRolesStorageTotal = new List<IdentityRole>();
+
+            foreach (var items in listRolesStorage)
+            {
+                var identity = new IdentityRole
+                {
+                    Id = items.Id,
+                    Name = items.Name
+                };
+                listRolesStorageTotal.Add(identity);
+            }
+
+            var json = JsonConvert.SerializeObject(listRolesStorageTotal, Formatting.Indented);
+            var answer = new HttpResponseMessage()
+            {
+                Content = new StringContent(json)
+            };
+            answer.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            return answer;
+        }
 
         protected override void Dispose(bool disposing)
         {
@@ -74,4 +120,6 @@ namespace Banking.WebApi.Controllers
             return BadRequest(ModelState);
         }
     }
+
+
 }

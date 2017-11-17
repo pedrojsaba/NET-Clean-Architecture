@@ -1,9 +1,9 @@
-﻿using Microsoft.Owin;
+﻿using Banking.WebApi.Provider;
+using Microsoft.Owin;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
 using System;
 using System.Web.Http;
-using Banking.WebApi.Provider;
 
 [assembly: OwinStartup(typeof(Banking.WebApi.Startup))]
 namespace Banking.WebApi
@@ -12,7 +12,7 @@ namespace Banking.WebApi
     {
         public void Configuration(IAppBuilder app)
         {
-            HttpConfiguration config = new HttpConfiguration
+            var config = new HttpConfiguration
             {
                 IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Always
             };

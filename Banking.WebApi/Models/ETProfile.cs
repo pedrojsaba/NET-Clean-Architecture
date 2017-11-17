@@ -5,9 +5,9 @@ using System.Web;
 
 namespace Banking.WebApi.Models
 {
-    public class EtProfile
+    public class ETProfile
     {
-        public int ProfileId { get; set; }
+        public int ProfileID { get; set; }
         public string IdGuidAspNetUsers { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

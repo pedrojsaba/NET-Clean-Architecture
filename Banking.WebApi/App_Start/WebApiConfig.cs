@@ -1,7 +1,7 @@
-﻿using System.Linq;
+﻿using Newtonsoft.Json.Serialization;
+using System.Linq;
 using System.Net.Http.Formatting;
 using System.Web.Http;
-using Newtonsoft.Json.Serialization;
 
 namespace Banking.WebApi
 {
@@ -9,9 +9,9 @@ namespace Banking.WebApi
     {
         public static void Register(HttpConfiguration config)
         {
-            // Web API configuration and services
-            config.EnableCors();
-            // Web API routes
+            // Configuración y servicios de API web
+
+            // Rutas de API web
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
@@ -21,29 +21,10 @@ namespace Banking.WebApi
             );
 
             config.Routes.MapHttpRoute(
-               name: "PerformApi",
-               routeTemplate: "api/{controller}/{accountFrom}/{accountTo}/{amount}",
-               defaults: new
-               {
-                   Controller = "Operation",
-                   Action = "Perform",
-                   accountFrom = RouteParameter.Optional,
-                   accountTo = RouteParameter.Optional,
-                   mount = RouteParameter.Optional
-               }
-           );
-
-            config.Routes.MapHttpRoute(
-               name: "TokenApi",
-               routeTemplate: "api/{controller}/{username}/{password}",
-               defaults: new
-               {
-                   Controller = "Token",
-                   Action = "Get",
-                   username = RouteParameter.Optional,
-                   password = RouteParameter.Optional
-               }
-           );
+                name: "ActionApi",
+                routeTemplate: "api/{controller}/{action}/{id}",
+                defaults: new { id = RouteParameter.Optional }
+            );
 
             var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().First();
             jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();

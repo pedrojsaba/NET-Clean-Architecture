@@ -12,7 +12,7 @@ namespace Banking.WebApi.Controllers
         //GET: /PerformTransfer/4767421619142000/0523218924860120/100
 
         [HttpGet]
-        [Authorize(Roles = "client")]
+        [Authorize(Roles = "administrator")]
         public ResultDto Perform(string accountFrom, string accountTo, decimal amount)
         {
             try

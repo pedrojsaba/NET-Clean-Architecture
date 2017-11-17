@@ -10,7 +10,7 @@ namespace Banking.WebApi.Controllers
     {        
         // POST api/BankAccount/GetAccounts/5        
         [HttpPost]
-        [Authorize(Roles = "client")]
+        [Authorize(Roles = "administrator")]
         public BankAccountDto[] GetAccounts(int id)
         {
             return new BankingApplicationService().GetAccounts(id).Select(bankAccount => new BankAccountDto

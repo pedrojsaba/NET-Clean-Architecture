@@ -1,65 +1,60 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Banking.Domain.Repositories;
 using Banking.Infrastructure.Migrations;
 
+// ReSharper disable once CheckNamespace
 namespace Banking.Infrastructure.Repositories.EntityFramework
 {
+    // ReSharper disable once InconsistentNaming
     public class CustomerRepositoryEF : ICustomerRepository
     {
+        readonly BankingContext _dbContext = new BankingContext(Funciones.GetConnectionString());
 
-        BankingContext dbContext = new BankingContext(Funciones.GetConnectionString());
-
-        public List<Banking.Domain.Model.Customer> GetAll()
+        public List<Domain.Model.Customer> GetAll()
         {
-
-            var customers = from a in dbContext.Customers
-                            select a;
-
-            List<Banking.Domain.Model.Customer> lstCustomers = new List<Banking.Domain.Model.Customer>();
-            foreach(Banking.Infrastructure.Migrations.Customer item in customers)
+            return _dbContext.Customers.Select(r => new Domain.Model.Customer
             {
-                var viewModel = new Banking.Domain.Model.Customer();
-                viewModel.Id = item.CustomerId;
-                viewModel.FirstName = item.FirstName;
-                viewModel.LastName = item.LastName;
-                lstCustomers.Add(viewModel);
-            }
-
-            return lstCustomers;
+                Id = r.CustomerId,
+                FirstName = r.FirstName,
+                LastName = r.LastName
+            }).ToList();
         }
 
 
-        public Banking.Domain.Model.Customer GetByCustomerId(int CustomerId)
+        public Domain.Model.Customer GetByCustomerId(int customerId)
         {
 
-            Banking.Infrastructure.Migrations.Customer customer = (from a in dbContext.Customers
-                            where a.CustomerId==CustomerId
+            var customer = (from a in _dbContext.Customers
+                            where a.CustomerId == customerId
                             select a).FirstOrDefault();
 
-                var viewModel = new Banking.Domain.Model.Customer();
-                viewModel.Id = customer.CustomerId;
-                viewModel.FirstName = customer.FirstName;
-                viewModel.LastName = customer.LastName;
-                viewModel.Dni = customer.Dni;
-                viewModel.Email = customer.Email;
-                return viewModel;
+            if (customer == null) return new Domain.Model.Customer();
+
+            var viewModel = new Domain.Model.Customer
+            {
+                Id = customer.CustomerId,
+                FirstName = customer.FirstName,
+                LastName = customer.LastName,
+                Dni = customer.Dni,
+                Email = customer.Email
+            };
+            return viewModel;
+
         }
 
-        public void save(Banking.Domain.Model.Customer entity)
+        public void save(Domain.Model.Customer entity)
         {
             throw new NotImplementedException();
         }
 
-        public void update(Banking.Domain.Model.Customer entity)
+        public void update(Domain.Model.Customer entity)
         {
             throw new NotImplementedException();
         }
 
-        public void merge(Banking.Domain.Model.Customer entity)
+        public void merge(Domain.Model.Customer entity)
         {
             throw new NotImplementedException();
         }

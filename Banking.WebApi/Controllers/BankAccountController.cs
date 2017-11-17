@@ -2,6 +2,7 @@
 using System.Web.Http;
 using Banking.Application;
 using Banking.Application.Dto;
+using Microsoft.AspNet.Identity;
 
 namespace Banking.WebApi.Controllers
 {
@@ -13,6 +14,21 @@ namespace Banking.WebApi.Controllers
         [Authorize(Roles = "administrator")]
         public BankAccountDto[] GetAccounts(int id)
         {
+            return new BankingApplicationService().GetAccounts(id).Select(bankAccount => new BankAccountDto
+            {
+                Balance = bankAccount.Balance,
+                Id = bankAccount.Id,
+                Number = bankAccount.Number,
+                IsLocked = bankAccount.IsLocked
+            }).ToArray();
+        }
+
+        // POST api/BankAccount/GetAccounts     
+        [HttpGet]
+        [Authorize(Roles = "administrator")]
+        public BankAccountDto[] GetAccounts()
+        {
+            var id = User.Identity.GetUserName();
             return new BankingApplicationService().GetAccounts(id).Select(bankAccount => new BankAccountDto
             {
                 Balance = bankAccount.Balance,

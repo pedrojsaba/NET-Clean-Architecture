@@ -1,5 +1,6 @@
 ﻿using Banking.Domain.Repositories;
 using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Data;
 using Banking.Domain.Model;
@@ -80,6 +81,11 @@ namespace Banking.Infrastructure.Repositories
 
             return bankAccount;
 
+        }
+
+        public List<BankAccount> GetByUsername(string username)
+        {
+            throw new NotImplementedException();
         }
 
         public BankAccount FindByNumberLocked(string accountNumber)

@@ -178,6 +178,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BankAccountController.cs" />
+    <Compile Include="Controllers\OperationController.cs" />
     <Compile Include="Controllers\PerformTransferController.cs" />
     <Compile Include="Engine\DLProfile.cs" />
     <Compile Include="Engine\HttpActionResult.cs" />

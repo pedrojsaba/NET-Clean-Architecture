@@ -52,6 +52,11 @@ namespace Banking.Application
             return _bankAccountRepository.GetByCustomerId(customerId);
         }
 
+        public List<Domain.Model.BankAccount> GetAccounts(string username)
+        {
+            return _bankAccountRepository.GetByUsername(username);
+        }
+
         public Domain.Model.BankAccount FindById(int bankAccountId)
         {
             return _bankAccountRepository.FindById(bankAccountId);

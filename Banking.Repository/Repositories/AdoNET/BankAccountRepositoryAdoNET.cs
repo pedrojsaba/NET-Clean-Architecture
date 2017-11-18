@@ -94,6 +94,11 @@ namespace Banking.Infrastructure.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public bool OwnAccount(string username, string accountNumber)
+        {
+            throw new NotImplementedException();
+        }
         public BankAccount FindByNumberLocked(string accountNumber)
         {
             throw new NotImplementedException();

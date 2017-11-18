@@ -56,6 +56,11 @@ namespace Banking.Application
         {
             return _bankAccountRepository.AccountEnabled(accountNumber);
         }
+
+        public bool OwnAccount(string username,string accountNumber)
+        {
+            return _bankAccountRepository.OwnAccount(username,accountNumber);
+        }
         public bool InsufficientBalance(string accountNumber, decimal amount)
         {
             return _bankAccountRepository.InsufficientBalance(accountNumber, amount);

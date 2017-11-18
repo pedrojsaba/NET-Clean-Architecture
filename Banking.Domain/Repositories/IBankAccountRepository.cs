@@ -12,6 +12,7 @@ namespace Banking.Domain.Repositories
         List<BankAccount> GetByUsername(string username);
         BankAccount FindById(int bankAccountId);
         bool InsufficientBalance(string accountNumber, decimal amount);
+        bool OwnAccount(string username, string accountNumber);
     }
 
 }

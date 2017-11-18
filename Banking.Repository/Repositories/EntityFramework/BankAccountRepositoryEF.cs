@@ -96,7 +96,20 @@ namespace Banking.Infrastructure.Repositories.EntityFramework
         {
             return !_dbContext.BankAccounts.Any(f => f.Number.Equals(accountNumber) && f.IsLocked == false && f.Balance>=amount);
         }
-
+        public bool OwnAccount(string username, string accountNumber)
+        {
+            return (from cust in _dbContext.Customers
+                       join bacc in _dbContext.BankAccounts
+                            on cust.CustomerId equals bacc.CustomerId
+                       where cust.Dni.Equals(username) && bacc.Number.Equals(accountNumber) && bacc.IsLocked == false                      
+                       select new Domain.Model.BankAccount
+                       {
+                           Id = bacc.BankAccountId,
+                           Number = bacc.Number,
+                           Balance = (decimal)bacc.Balance
+                       }).Any();
+            
+        }
         public bool AccountEnabled(string accountNumber)
         {
             return _dbContext.BankAccounts.Any(f => f.Number.Equals(accountNumber) && f.IsLocked == false);

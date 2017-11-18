@@ -5,7 +5,7 @@ using Banking.Application.Dto;
 
 namespace Banking.WebApi.Controllers
 {
-    [RoutePrefix("api/BankAccount")]
+    [RoutePrefix("api/PerformTransfer")]
     public class PerformTransferController : ApiController
     {
         
@@ -34,6 +34,15 @@ namespace Banking.WebApi.Controllers
                 };
             }
 
+        }
+
+        // GET api/PerformTransfer/AccountEnabled     
+        [HttpGet]
+        //[AllowAnonymous]
+        [Authorize(Roles = "administrator")]
+        public bool AccountEnabled(string id)
+        {
+            return new BankingApplicationService().AccountEnabled(id);
         }
     }
 }

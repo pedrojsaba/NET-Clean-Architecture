@@ -38,13 +38,6 @@ namespace Banking.WebApi.Controllers
             }).ToArray();
         }
 
-        // GET api/BankAccount/AccountEnabled     
-        [HttpGet]
-        //[AllowAnonymous]
-        [Authorize(Roles = "administrator")]
-        public bool AccountEnabled(string id)
-        {
-            return new BankingApplicationService().AccountEnabled(id);
-        }
+       
     }
 }

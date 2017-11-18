@@ -23,6 +23,10 @@ namespace Banking.WebApi.Controllers
 
             if (accountFrom.Equals(accountTo)) throw new Exception("No se puede transferir a la misma cuenta.");
 
+            if (amount == 0) throw new Exception("No se puede transferir este monto.");
+
+            if (amount < 0) throw new Exception("No se puede transferir montos negativos.");
+
             if (bankingApplicationService.InsufficientBalance(accountFrom, amount)) throw new Exception("Saldo Insuficiente.");
         }
 

@@ -38,8 +38,8 @@ namespace Banking.WebApi.Controllers
             }).ToArray();
         }
 
-        // POST api/BankAccount/AccountEnabled     
-        [HttpPost]
+        // GET api/BankAccount/AccountEnabled     
+        [HttpGet]
         [Authorize(Roles = "administrator")]
         public bool AccountEnabled(string number)
         {

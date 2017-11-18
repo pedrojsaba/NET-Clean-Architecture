@@ -26,7 +26,18 @@ namespace Banking.WebApi
                 defaults: new { id = RouteParameter.Optional }
             );
 
-           
+            config.Routes.MapHttpRoute(
+                name: "PerformApi",
+                routeTemplate: "api/{controller}/{accountFrom}/{accountTo}/{amount}",
+                defaults: new
+                {
+                    Controller = "PerformTransfer",
+                    Action = "Perform",
+                    accountFrom = RouteParameter.Optional,
+                    accountTo = RouteParameter.Optional,
+                    mount = RouteParameter.Optional
+                }
+            );
 
             var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().First();
             jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();

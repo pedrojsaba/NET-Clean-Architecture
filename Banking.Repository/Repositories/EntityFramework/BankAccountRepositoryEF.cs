@@ -92,6 +92,11 @@ namespace Banking.Infrastructure.Repositories.EntityFramework
             return viewModel;
         }
 
+        public bool InsufficientBalance(string accountNumber, decimal amount)
+        {
+            return !_dbContext.BankAccounts.Any(f => f.Number.Equals(accountNumber) && f.IsLocked == false && f.Balance>=amount);
+        }
+
         public bool AccountEnabled(string accountNumber)
         {
             return _dbContext.BankAccounts.Any(f => f.Number.Equals(accountNumber) && f.IsLocked == false);

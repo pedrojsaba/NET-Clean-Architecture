@@ -8,7 +8,7 @@ namespace Banking.WebApi.Controllers
     [RoutePrefix("api/PerformTransfer")]
     public class PerformTransferController : ApiController
     {
-        
+
         //GET: /PerformTransfer/4767421619142000/0523218924860120/100
 
         [HttpGet]
@@ -18,6 +18,8 @@ namespace Banking.WebApi.Controllers
             try
             {
                 var bankingApplicationService = new BankingApplicationService();
+                if (bankingApplicationService.InsufficientBalance(accountFrom, amount)) throw new Exception("Saldo Insuficiente.");
+
                 bankingApplicationService.PerformTransfer(new BankAccountDto { Number = accountFrom }, new BankAccountDto { Number = accountTo }, amount);
                 return new ResultDto
                 {

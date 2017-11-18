@@ -56,6 +56,10 @@ namespace Banking.Application
         {
             return _bankAccountRepository.AccountEnabled(accountNumber);
         }
+        public bool InsufficientBalance(string accountNumber, decimal amount)
+        {
+            return _bankAccountRepository.InsufficientBalance(accountNumber, amount);
+        }
         public List<Domain.Model.BankAccount> GetAccounts(string username)
         {
             return _bankAccountRepository.GetByUsername(username);

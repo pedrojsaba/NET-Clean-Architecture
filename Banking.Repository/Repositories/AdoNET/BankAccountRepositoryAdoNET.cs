@@ -90,7 +90,10 @@ namespace Banking.Infrastructure.Repositories
         {
             throw new NotImplementedException();
         }
-
+        public bool InsufficientBalance(string accountNumber, decimal amount)
+        {
+            throw new NotImplementedException();
+        }
         public BankAccount FindByNumberLocked(string accountNumber)
         {
             throw new NotImplementedException();

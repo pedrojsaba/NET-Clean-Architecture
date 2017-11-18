@@ -12,16 +12,18 @@ namespace Banking.WebApi.Controllers
 
         private void ValidatePerform(string accountFrom, string accountTo, decimal amount)
         {
-            var bankingApplicationService = new BankingApplicationService();
-            if (bankingApplicationService.InsufficientBalance(accountFrom, amount)) throw new Exception("Saldo Insuficiente.");
+            var bankingApplicationService = new BankingApplicationService();            
 
             if (!bankingApplicationService.AccountEnabled(accountFrom)) throw new Exception("La Cuenta de Origen no es valida.");
             if (!bankingApplicationService.AccountEnabled(accountTo)) throw new Exception("La Cuenta de Destino no es valida.");
+
 
             var id = User.Identity.GetUserName();
             if (!bankingApplicationService.OwnAccount(id, accountTo)) throw new Exception("La Cuenta de Origen no te pertenece.");
 
             if (accountFrom.Equals(accountTo)) throw new Exception("No se puede transferir a la misma cuenta.");
+
+            if (bankingApplicationService.InsufficientBalance(accountFrom, amount)) throw new Exception("Saldo Insuficiente.");
         }
 
         //GET: /PerformTransfer/4767421619142000/0523218924860120/100

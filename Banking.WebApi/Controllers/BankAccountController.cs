@@ -39,7 +39,7 @@ namespace Banking.WebApi.Controllers
         }
 
         // POST api/BankAccount/AccountEnabled     
-        [HttpGet]
+        [HttpPost]
         [Authorize(Roles = "administrator")]
         public bool AccountEnabled(string number)
         {

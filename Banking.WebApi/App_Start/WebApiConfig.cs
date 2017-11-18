@@ -28,8 +28,8 @@ namespace Banking.WebApi
 
             config.Routes.MapHttpRoute(
                 name: "NumberApi",
-                routeTemplate: "api/{controller}/{action}/{number}",
-                defaults: new { number = RouteParameter.Optional }
+                routeTemplate: "api/AccountEnabled/{number}",
+                defaults: new { number = RouteParameter.Optional, controller = "BankAccount", action = "AccountEnabled" }
             );
 
             var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().First();

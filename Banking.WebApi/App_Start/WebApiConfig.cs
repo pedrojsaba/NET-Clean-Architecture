@@ -26,6 +26,12 @@ namespace Banking.WebApi
                 defaults: new { id = RouteParameter.Optional }
             );
 
+            config.Routes.MapHttpRoute(
+                name: "NumberApi",
+                routeTemplate: "api/{controller}/{action}/{number}",
+                defaults: new { number = RouteParameter.Optional }
+            );
+
             var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().First();
             jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
         }

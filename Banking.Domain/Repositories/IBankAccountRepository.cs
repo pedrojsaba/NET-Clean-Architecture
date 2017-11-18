@@ -7,7 +7,7 @@ namespace Banking.Domain.Repositories
     {
         BankAccount FindByNumber(string accountNumber);
         BankAccount FindByNumberLocked(string accountNumber);
-
+        bool AccountEnabled(string accountNumber);
         List<BankAccount> GetByCustomerId(int customerId);
         List<BankAccount> GetByUsername(string username);
         BankAccount FindById(int bankAccountId);

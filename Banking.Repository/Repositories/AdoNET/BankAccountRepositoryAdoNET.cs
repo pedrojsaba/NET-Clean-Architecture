@@ -82,7 +82,10 @@ namespace Banking.Infrastructure.Repositories
             return bankAccount;
 
         }
-
+        public bool AccountEnabled(string accountNumber)
+        {
+            throw new NotImplementedException();
+        }
         public List<BankAccount> GetByUsername(string username)
         {
             throw new NotImplementedException();

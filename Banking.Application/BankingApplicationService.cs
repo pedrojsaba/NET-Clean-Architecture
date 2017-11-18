@@ -52,6 +52,10 @@ namespace Banking.Application
             return _bankAccountRepository.GetByCustomerId(customerId);
         }
 
+        public bool AccountEnabled(string accountNumber)
+        {
+            return _bankAccountRepository.AccountEnabled(accountNumber);
+        }
         public List<Domain.Model.BankAccount> GetAccounts(string username)
         {
             return _bankAccountRepository.GetByUsername(username);

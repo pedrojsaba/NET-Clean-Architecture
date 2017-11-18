@@ -23,7 +23,7 @@ namespace Banking.WebApi.Controllers
             }).ToArray();
         }
 
-        // POST api/BankAccount/GetAccounts     
+        // GET api/BankAccount/GetAccounts     
         [HttpGet]
         [Authorize(Roles = "administrator")]
         public BankAccountDto[] GetAccounts()
@@ -36,6 +36,14 @@ namespace Banking.WebApi.Controllers
                 Number = bankAccount.Number,
                 IsLocked = bankAccount.IsLocked
             }).ToArray();
+        }
+
+        // POST api/BankAccount/AccountEnabled     
+        [HttpGet]
+        [Authorize(Roles = "administrator")]
+        public bool AccountEnabled(string number)
+        {
+            return new BankingApplicationService().AccountEnabled(number);
         }
     }
 }

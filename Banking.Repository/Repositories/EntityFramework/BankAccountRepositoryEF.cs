@@ -92,6 +92,10 @@ namespace Banking.Infrastructure.Repositories.EntityFramework
             return viewModel;
         }
 
+        public bool AccountEnabled(string accountNumber)
+        {
+            return _dbContext.BankAccounts.Any(f => f.Number.Equals(accountNumber) && f.IsLocked == false);
+        }
 
         public Domain.Model.BankAccount FindByNumberLocked(string accountNumber)
         {

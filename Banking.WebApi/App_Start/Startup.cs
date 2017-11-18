@@ -30,7 +30,7 @@ namespace Banking.WebApi
             {
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/token"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
+                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(5),
                 Provider = new SimpleAuthorizationServerProvider()
             };
 
